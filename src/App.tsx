@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { sylow } from "./utils/sylow";
 
-function App() {
+const Container = styled.div`
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input``;
+
+const Button = styled.button`
+  margin: 1rem;
+`;
+
+export default function App() {
+  const [state, updateState] = useState("input");
+  const [answer, setAnswer] = useState(null as null | number | string);
+
+  const handleClick = () => {
+    setAnswer(sylow(Number(state)));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <h1>Sylow Analyzer</h1>
+      <Input value={state} onChange={(e) => updateState(e.target.value)} />
+      <Button onClick={handleClick}>Analyze</Button>
+      {answer || <div>{answer}</div>}
+    </Container>
   );
 }
-
-export default App;
