@@ -20,7 +20,7 @@ export default function App() {
   const [answer, setAnswer] = useState(null as null | number | string);
 
   const handleClick = () => {
-    setAnswer(sylow(Number(state)));
+    setAnswer(sylow(state));
   };
 
   return (
