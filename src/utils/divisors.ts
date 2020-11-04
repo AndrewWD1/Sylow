@@ -5,7 +5,7 @@ export const divisors: (int: number) => number[] = (int) => {
     if (int % i === 0) divisors.push(i);
   }
 
-  divisors.push(int);
+  if (int > 1) divisors.push(int);
 
   return divisors;
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { SylowResult } from "./components/SylowResult";
 import { sylow } from "./utils/sylow";
 
 const Container = styled.div`
@@ -17,7 +18,15 @@ const Button = styled.button`
 
 export default function App() {
   const [state, updateState] = useState("input");
-  const [answer, setAnswer] = useState(null as null | number | string);
+  const [answer, setAnswer] = useState(
+    null as
+      | null
+      | number
+      | (number | number[][])[][]
+      | "must be an integer"
+      | " must be an integer"
+      | string
+  );
 
   const handleClick = () => {
     setAnswer(sylow(state));

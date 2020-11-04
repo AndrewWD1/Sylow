@@ -8,8 +8,9 @@ export const factor: (int: number) => [number, number][] = (int) => {
   let arr: [number, number][] = [];
 
   while (i <= curr) {
-    if (curr % i == 0) {
+    if (curr % i === 0) {
       if (arr.map((x) => x[0]).includes(i)) {
+        // eslint-disable-next-line 
         arr[arr.findIndex((x) => x[0] === i)][1] += 1;
       } else {
         arr.push([i, 1]);
