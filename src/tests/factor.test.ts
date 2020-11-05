@@ -1,4 +1,4 @@
-import { factor } from "./factor";
+import { factor } from "../utils/factor";
 
 test("factor 5", () => {
   expect(factor(5)).toEqual([[5, 1]]);

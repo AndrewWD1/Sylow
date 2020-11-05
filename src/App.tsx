@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { SylowResult } from "./components/SylowResult";
-import { ISylowResult, sylow } from "./utils/sylow";
+import { ISylowFactors, sylowFactors } from "./utils/sylow";
 
 const Container = styled.div`
   font-family: sans-serif;
@@ -19,12 +19,10 @@ const Button = styled.button`
 export default function App() {
   const [state, updateState] = useState("input");
 
-  const [answer, setAnswer] = useState(
-    "No input yet" as ISylowResult[] | string
-  );
+  const [answer, setAnswer] = useState("No input yet");
 
   const handleClick = () => {
-    setAnswer(sylow(state));
+    setAnswer(state);
   };
 
   return (
@@ -32,7 +30,7 @@ export default function App() {
       <h1>Sylow Analyzer</h1>
       <Input value={state} onChange={(e) => updateState(e.target.value)} />
       <Button onClick={handleClick}>Analyze</Button>
-      <SylowResult result={answer}/>
+      <SylowResult value={answer} />
     </Container>
   );
 }
