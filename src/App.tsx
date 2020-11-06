@@ -13,6 +13,11 @@ const Input = styled.input``;
 
 const Button = styled.button`
   margin: 1rem;
+  padding: 0.3rem 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default function App() {

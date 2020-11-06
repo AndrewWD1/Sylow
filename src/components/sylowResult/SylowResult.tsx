@@ -4,54 +4,60 @@ import { factor } from "../../utils/factor";
 import { ISylowFactors, sylowFactors } from "../../utils/sylow";
 import { sylowAnalysis } from "../../utils/sylowAnalysis";
 
-interface IProps {
-  value: string;
-}
-
-const stringifySylowResult = (p: ISylowFactors) => {
-  let str = "";
-
-  p.sylowFactors.forEach((e) => {
-    str += `(${e}), `;
-  });
-
-  return str.slice(0, str.length - 2);
-};
+const Container = styled.div`
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 1rem;
+  padding-top: 0rem;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Table = styled.table`
   text-align: left;
 
   border: 1px solid black;
+
   th {
+    padding: 0.2rem 0.4rem;
     border: 1px solid black;
   }
   td {
-    padding: 1rem;
+    padding: 0.5rem;
     border: 1px solid black;
   }
 `;
 
-export const SylowResult: React.FC<IProps> = ({ value }) => {
+const removeTrailingComma = (str: string) =>
+  str.substring(0, str.lastIndexOf(","));
+
+const stringifySylowResult = (p: ISylowFactors) =>
+  removeTrailingComma(
+    p.sylowFactors.reduce<string>((a, c) => a + `(${c}), `, "")
+  );
+
+export const SylowResult: React.FC<{
+  value: string;
+}> = ({ value }) => {
   const result = sylowFactors(value);
 
   if (typeof result === "string") return <div>{result}</div>;
 
   return (
-    <div>
+    <Container>
       <h2>
         Sylow subgroup factors for groups of order: {value} =
         {factor(Number(value)).map((fac) => (
           <>
-            {" "}
             {fac[0]}
-            <sup>{fac[1]}</sup>{" "}
+            <sup>{fac[1]}</sup>
           </>
         ))}
       </h2>
       <Table>
         <tr>
           <th>p</th>
-          <th>(p, q mod p)</th>
+          <th>(p, t mod p)</th>
         </tr>
         {result.map((p) => (
           <tr>
@@ -62,6 +68,6 @@ export const SylowResult: React.FC<IProps> = ({ value }) => {
       </Table>
       <h2>Analysis: </h2>
       <div>{sylowAnalysis(result)}</div>
-    </div>
+    </Container>
   );
 };
