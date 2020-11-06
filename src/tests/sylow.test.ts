@@ -1,4 +1,4 @@
-import { ISylowFactors, sylowFactors } from "../utils/sylow";
+import { sylowFactors } from "../utils/sylow";
 
 test("Sylow of 5", () => {
   let exp = [{ primeFactor: 5, sylowFactors: [[1, 1]] }];

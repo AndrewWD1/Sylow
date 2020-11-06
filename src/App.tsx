@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SylowResult } from "./components/SylowResult";
-import { ISylowFactors, sylowFactors } from "./utils/sylow";
+import { SylowResult } from "./components/sylowResult/SylowResult";
 
 const Container = styled.div`
   font-family: sans-serif;

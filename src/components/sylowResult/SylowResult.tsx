@@ -1,6 +1,6 @@
 import React from "react";
-import { ISylowFactors, sylowFactors } from "../utils/sylow";
-import { sylowAnalysis } from "../utils/sylowAnalysis";
+import { ISylowFactors, sylowFactors } from "../../utils/sylow";
+import { sylowAnalysis } from "../../utils/sylowAnalysis";
 
 interface IProps {
   value: string;
@@ -26,7 +26,6 @@ export const SylowResult: React.FC<IProps> = ({ value }) => {
       {result.map((p) => (
         <div>{stringifySylowResult(p)}</div>
       ))}
-
       <div>{sylowAnalysis(result)}</div>
     </div>
   );

@@ -8,5 +8,7 @@ test("groups of order 14", () => {
 });
 
 test("groups of order 60", () => {
-  expect(sylowAnalysis(sylowFactors("60"))).toEqual("Groups of this order have normal subgroups of order:");
+  expect(sylowAnalysis(sylowFactors("60"))).toEqual(
+    "Groups of this order have normal subgroups of order:"
+  );
 });

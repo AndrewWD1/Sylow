@@ -1,4 +1,4 @@
-import { ISylowFactors, sylowFactors } from "./sylow";
+import { ISylowFactors } from "./sylow";
 
 const removeTrailingComma = (str: string) => {
   if (str[str.length - 1] === ",") return str.slice(0, str.length - 1);
