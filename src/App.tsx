@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { SylowResult } from "./components/sylowResult/SylowResult";
+import { completeSylow, ISylow } from "./utils/sylow";
 
 const Container = styled.div`
   font-family: sans-serif;
@@ -21,20 +22,20 @@ const Button = styled.button`
 `;
 
 export default function App() {
-  const [state, updateState] = useState("input");
+  const [input, setInput] = useState("input");
 
-  const [answer, setAnswer] = useState("No input yet");
+  const [answer, setAnswer] = useState(null as ISylow | null);
 
   const handleClick = () => {
-    setAnswer(state);
+    setAnswer(completeSylow(Number(input)));
   };
 
   return (
     <Container>
       <h1>Sylow Analyzer</h1>
-      <Input value={state} onChange={(e) => updateState(e.target.value)} />
+      <Input value={input} onChange={(e) => setInput(e.target.value)} />
       <Button onClick={handleClick}>Analyze</Button>
-      <SylowResult value={answer} />
+      {answer ? <SylowResult analysis={answer} /> : <div>no input yet</div>}
     </Container>
   );
 }

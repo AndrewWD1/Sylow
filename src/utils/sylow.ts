@@ -6,8 +6,43 @@ export interface ISylowFactors {
   sylowFactors: number[][];
 }
 
+export interface ISylow {
+  int: number;
+  factorization: [number, number][];
+  sylowFactorization: ISylowFactors[] | string;
+  analysis: string;
+}
+
 const divisorAnalysis = (prime: number, remaining: number) =>
   divisors(remaining).map((x) => [x, x % prime]);
+
+export const sylowAnalysis = (sylowFactorResult: ISylowFactors[] | string) => {
+  if (typeof sylowFactorResult === "string") return "";
+
+  const list: number[] = [];
+
+  sylowFactorResult.forEach((x) => {
+    for (let factor of x.sylowFactors.slice(1)) {
+      if (factor[1] === 1) return false;
+    }
+    list.push(x.primeFactor);
+  });
+
+  return stringifySylowAnalysis(list);
+};
+
+const removeTrailingComma = (str: string) => {
+  if (str[str.length - 1] === ",") return str.slice(0, str.length - 1);
+  return str;
+};
+
+const stringifySylowAnalysis = (list: number[]) =>
+  removeTrailingComma(
+    `Based just off of this, groups of this order have normal subgroups of order: ${list.reduce(
+      (a, c) => a + c + ", ",
+      ""
+    )}`.trimEnd()
+  );
 
 export const sylowFactors: (input: string) => ISylowFactors[] | string = (
   input
@@ -22,4 +57,15 @@ export const sylowFactors: (input: string) => ISylowFactors[] | string = (
   }));
 
   return Number.isNaN(num) ? "must be an integer" : sylowed;
+};
+
+export const completeSylow = (int: number): ISylow => {
+  const sylowFactorization = sylowFactors(int.toString());
+
+  return {
+    int: int,
+    factorization: factor(int),
+    sylowFactorization,
+    analysis: sylowAnalysis(sylowFactorization),
+  };
 };

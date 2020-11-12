@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { factor } from "../../utils/factor";
-import { ISylowFactors, sylowFactors } from "../../utils/sylow";
-import { sylowAnalysis } from "../../utils/sylowAnalysis";
+import { ISylow, ISylowFactors } from "../../utils/sylow";
 
 const Container = styled.div`
   border: 1px solid black;
@@ -37,17 +35,16 @@ const stringifySylowResult = (p: ISylowFactors) =>
   );
 
 export const SylowResult: React.FC<{
-  value: string;
-}> = ({ value }) => {
-  const result = sylowFactors(value);
-
-  if (typeof result === "string") return <div>{result}</div>;
+  analysis: ISylow;
+}> = ({ analysis }) => {
+  if (typeof analysis.sylowFactorization === "string")
+    return <div>{analysis.sylowFactorization}</div>;
 
   return (
     <Container>
       <h2>
-        Sylow subgroup factors for groups of order: {value} =
-        {factor(Number(value)).map((fac) => (
+        Sylow subgroup factors for groups of order: {analysis.int} =
+        {analysis.factorization.map((fac) => (
           <>
             {fac[0]}
             <sup>{fac[1]}</sup>
@@ -59,7 +56,7 @@ export const SylowResult: React.FC<{
           <th>p</th>
           <th>(p, t mod p)</th>
         </tr>
-        {result.map((p) => (
+        {analysis.sylowFactorization.map((p) => (
           <tr>
             <td>{p.primeFactor}</td>
             <td>{stringifySylowResult(p)}</td>
@@ -67,7 +64,7 @@ export const SylowResult: React.FC<{
         ))}
       </Table>
       <h2>Analysis: </h2>
-      <div>{sylowAnalysis(result)}</div>
+      <div>{analysis.analysis}</div>
     </Container>
   );
 };
