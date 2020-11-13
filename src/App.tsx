@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SylowResult } from "./components/sylowResult/SylowResult";
+import Nav from "./components/Nav";
+import { SylowResult } from "./components/SylowResult";
 import { completeSylow, ISylow } from "./utils/sylow";
 
-const Container = styled.div`
+const AppContainer = styled.div`
+  font-family: sans-serif;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const Container = styled.main`
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const Input = styled.input``;
@@ -31,11 +40,14 @@ export default function App() {
   };
 
   return (
-    <Container>
-      <h1>Sylow Analyzer</h1>
-      <Input value={input} onChange={(e) => setInput(e.target.value)} />
-      <Button onClick={handleClick}>Analyze</Button>
-      {answer ? <SylowResult analysis={answer} /> : <div>no input yet</div>}
-    </Container>
+    <AppContainer>
+      <Nav />
+      <Container>
+        <h1>Sylow Analyzer</h1>
+        <Input value={input} onChange={(e) => setInput(e.target.value)} />
+        <Button onClick={handleClick}>Analyze</Button>
+        {answer ? <SylowResult analysis={answer} /> : <div>no input yet</div>}
+      </Container>
+    </AppContainer>
   );
 }

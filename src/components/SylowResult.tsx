@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ISylow, ISylowFactors } from "../../utils/sylow";
+import { ISylow, ISylowFactors } from "../utils/sylow";
 
 const Container = styled.div`
   border: 1px solid black;
