@@ -61,8 +61,8 @@ export default function App() {
   };
 
   return (
-    <AppContainer horizontal={width < 800}>
-      <Nav horizontal={width < 800} />
+    <AppContainer horizontal={width < 900}>
+      <Nav horizontal={width < 900} />
       <Container>
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
         <Button onClick={handleClick}>Analyze</Button>

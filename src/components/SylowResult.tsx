@@ -50,11 +50,11 @@ export const SylowResult: React.FC<{
         Sylow subgroup factors for groups of order:{" "}
         <span className="Factors">
           {analysis.int} ={" "}
-          {analysis.factorization.map((fac) => (
-            <>
+          {analysis.factorization.map((fac, i) => (
+            <span key={i}>
               {fac[0]}
               <sup>{fac[1]}</sup>
-            </>
+            </span>
           ))}
         </span>
       </h2>
@@ -66,8 +66,8 @@ export const SylowResult: React.FC<{
           </tr>
         </thead>
         <tbody>
-          {analysis.sylowFactorization.map((p) => (
-            <tr>
+          {analysis.sylowFactorization.map((p, i) => (
+            <tr key={`table-${i}`}>
               <td>{p.primeFactor}</td>
               <td>{stringifySylowResult(p)}</td>
             </tr>
