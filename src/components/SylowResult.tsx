@@ -9,11 +9,15 @@ const Container = styled.div`
   padding-top: 0rem;
   display: flex;
   flex-direction: column;
+  margin: 0 1rem 1rem 1rem;
+
+  & .Factors {
+    display: inline-block;
+  }
 `;
 
 const Table = styled.table`
   text-align: left;
-
   border: 1px solid black;
 
   th {
@@ -43,25 +47,32 @@ export const SylowResult: React.FC<{
   return (
     <Container>
       <h2>
-        Sylow subgroup factors for groups of order: {analysis.int} =
-        {analysis.factorization.map((fac) => (
-          <>
-            {fac[0]}
-            <sup>{fac[1]}</sup>
-          </>
-        ))}
+        Sylow subgroup factors for groups of order:{" "}
+        <span className="Factors">
+          {analysis.int} ={" "}
+          {analysis.factorization.map((fac) => (
+            <>
+              {fac[0]}
+              <sup>{fac[1]}</sup>
+            </>
+          ))}
+        </span>
       </h2>
       <Table>
-        <tr>
-          <th>p</th>
-          <th>(p, t mod p)</th>
-        </tr>
-        {analysis.sylowFactorization.map((p) => (
+        <thead>
           <tr>
-            <td>{p.primeFactor}</td>
-            <td>{stringifySylowResult(p)}</td>
+            <th>p</th>
+            <th>(p, t mod p)</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {analysis.sylowFactorization.map((p) => (
+            <tr>
+              <td>{p.primeFactor}</td>
+              <td>{stringifySylowResult(p)}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
       <h2>Analysis: </h2>
       <div>{analysis.analysis}</div>
