@@ -7,7 +7,6 @@ interface NavContainerProps {
 }
 
 const NavContainer = styled.nav<NavContainerProps>`
-  border-right: 1px solid black;
   display: flex;
 
   ${(props) =>
@@ -15,6 +14,7 @@ const NavContainer = styled.nav<NavContainerProps>`
       ? css`
           flex-direction: column;
           align-items: flex-start;
+          border-bottom: 1px solid black;
 
           & .With-Button {
             width: 100%;
@@ -23,6 +23,7 @@ const NavContainer = styled.nav<NavContainerProps>`
           }
         `
       : css`
+          border-right: 1px solid black;
           width: 16rem;
           flex-direction: column;
         `}
