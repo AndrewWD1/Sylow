@@ -13,6 +13,7 @@ const AppContainer = styled.div<AppContainerProps>`
   display: flex;
   height: 100vh;
   width: 100vw;
+
   ${(props) =>
     props.horizontal &&
     css`

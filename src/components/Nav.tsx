@@ -15,6 +15,7 @@ const NavContainer = styled.nav<NavContainerProps>`
           flex-direction: column;
           align-items: flex-start;
           border-bottom: 1px solid black;
+          padding-left: 0.4rem;
 
           & .With-Button {
             width: 100%;
