@@ -1,3 +1,5 @@
+import { Hash } from "./classes/Hash";
+
 export const factor: (int: number) => [number, number][] = (int) => {
   if (int.toString().includes(".")) return [[NaN, NaN]];
   if (int < 1) return [[NaN, NaN]];
@@ -5,15 +7,14 @@ export const factor: (int: number) => [number, number][] = (int) => {
   let i = 2;
   let curr = int;
 
-  let arr: [number, number][] = [];
+  let hash = new Hash<number, number>();
 
   while (i <= curr) {
     if (curr % i === 0) {
-      if (arr.map((x) => x[0]).includes(i)) {
-        // eslint-disable-next-line 
-        arr[arr.findIndex((x) => x[0] === i)][1] += 1;
+      if (hash.has(i)) {
+        hash.set(i, (hash.get(i) as any) + 1);
       } else {
-        arr.push([i, 1]);
+        hash.set(i, 1);
       }
       curr /= i;
     } else {
@@ -21,5 +22,5 @@ export const factor: (int: number) => [number, number][] = (int) => {
     }
   }
 
-  return arr;
+  return hash.toArray();
 };
