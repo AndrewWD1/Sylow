@@ -7,6 +7,7 @@ import Worker from "./worker";
 
 interface AppContainerProps {
   horizontal: boolean;
+  waiting: boolean;
 }
 
 const AppContainer = styled.div<AppContainerProps>`
@@ -14,6 +15,12 @@ const AppContainer = styled.div<AppContainerProps>`
   display: flex;
   height: 100vh;
   width: 100vw;
+
+  ${(props) =>
+    props.waiting &&
+    css`
+      cursor: progress;
+    `}
 
   ${(props) =>
     props.horizontal &&
@@ -47,8 +54,9 @@ const Button = styled.button`
 
 export default function App() {
   const [input, setInput] = useState("input");
-  const [answer, setAnswer] = useState(null as ISylow | null);
+  const [answer, setAnswer] = useState("no input yet" as ISylow | string);
   const [width, setWidth] = useState(window.innerWidth);
+  const [waiting, setWaiting] = useState(false);
 
   const instance = new Worker();
 
@@ -63,19 +71,26 @@ export default function App() {
   const handleClick = () => {
     return new Promise(async (resolve) => {
       // Use a web worker to process the data
+      setAnswer("Calculating...");
+      setWaiting(true);
       const processed = await instance.processData(input);
+      setWaiting(false);
 
       setAnswer((processed as unknown) as ISylow);
     });
   };
 
   return (
-    <AppContainer horizontal={width < 900}>
+    <AppContainer waiting={waiting} horizontal={width < 900}>
       <Nav horizontal={width < 900} />
       <Container>
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
         <Button onClick={handleClick}>Analyze</Button>
-        {answer ? <SylowResult analysis={answer} /> : <div>no input yet</div>}
+        {typeof answer === "string" ? (
+          <div>{answer}</div>
+        ) : (
+          <SylowResult analysis={answer} />
+        )}
       </Container>
     </AppContainer>
   );
