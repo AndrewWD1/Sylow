@@ -10,6 +10,8 @@ interface AppContainerProps {
   waiting: boolean;
 }
 
+const instance = new Worker();
+
 const AppContainer = styled.div<AppContainerProps>`
   font-family: sans-serif;
   display: flex;
@@ -57,8 +59,6 @@ export default function App() {
   const [answer, setAnswer] = useState("no input yet" as ISylow | string);
   const [width, setWidth] = useState(window.innerWidth);
   const [waiting, setWaiting] = useState(false);
-
-  const instance = new Worker();
 
   useEffect(() => {
     function handleResize() {
