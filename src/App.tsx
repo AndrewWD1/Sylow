@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Nav from "./components/Nav";
 import { SylowResult } from "./components/SylowResult";
-import { completeSylow, ISylow } from "./utils/sylow";
+import { ISylow } from "./utils/sylow";
+import Worker from "./worker";
 
 interface AppContainerProps {
   horizontal: boolean;
@@ -49,6 +50,8 @@ export default function App() {
   const [answer, setAnswer] = useState(null as ISylow | null);
   const [width, setWidth] = useState(window.innerWidth);
 
+  const instance = new Worker();
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -58,7 +61,12 @@ export default function App() {
   }, [width]);
 
   const handleClick = () => {
-    setAnswer(completeSylow(Number(input)));
+    return new Promise(async (resolve) => {
+      // Use a web worker to process the data
+      const processed = await instance.processData(input);
+
+      setAnswer((processed as unknown) as ISylow);
+    });
   };
 
   return (
