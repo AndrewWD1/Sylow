@@ -15,7 +15,7 @@ const instance = new Worker();
 const AppContainer = styled.div<AppContainerProps>`
   font-family: sans-serif;
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 
   ${(props) =>
