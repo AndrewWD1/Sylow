@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 import Nav from "./components/Nav";
 import { SylowResult } from "./components/SylowResult";
 import { ISylow } from "./utils/sylow";
@@ -10,7 +10,13 @@ interface AppContainerProps {
   waiting: boolean;
 }
 
-const instance = new Worker();
+const GlobalStyles = createGlobalStyle`
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Martel Sans", sans-serif;
+    }
+`;
 
 const AppContainer = styled.div<AppContainerProps>`
   font-family: sans-serif;
@@ -54,6 +60,8 @@ const Button = styled.button`
   }
 `;
 
+const instance = new Worker();
+
 export default function App() {
   const [input, setInput] = useState("input");
   const [answer, setAnswer] = useState("no input yet" as ISylow | string);
@@ -81,17 +89,20 @@ export default function App() {
   };
 
   return (
-    <AppContainer waiting={waiting} horizontal={width < 900}>
-      <Nav horizontal={width < 900} />
-      <Container>
-        <Input value={input} onChange={(e) => setInput(e.target.value)} />
-        <Button onClick={handleClick}>Analyze</Button>
-        {typeof answer === "string" ? (
-          <div>{answer}</div>
-        ) : (
-          <SylowResult analysis={answer} />
-        )}
-      </Container>
-    </AppContainer>
+    <>
+      <GlobalStyles />
+      <AppContainer waiting={waiting} horizontal={width < 900}>
+        <Nav horizontal={width < 900} />
+        <Container>
+          <Input value={input} onChange={(e) => setInput(e.target.value)} />
+          <Button onClick={handleClick}>Analyze</Button>
+          {typeof answer === "string" ? (
+            <div>{answer}</div>
+          ) : (
+            <SylowResult analysis={answer} />
+          )}
+        </Container>
+      </AppContainer>
+    </>
   );
 }
