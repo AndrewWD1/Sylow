@@ -29,13 +29,13 @@ test("Sylow factors of 10", () => {
 
 test("Sylow Analysis: groups of order 14", () => {
   expect(sylowAnalysis(sylowFactors("14"))).toBe(
-    "Based just off of this, groups of this order have normal subgroups of order: 7"
+    "Based off this analysis, groups of this order must have normal subgroups of order: 7"
   );
 });
 
 test("Slyow Analysis: groups of order 60", () => {
   expect(sylowAnalysis(sylowFactors("60"))).toEqual(
-    "Based just off of this, groups of this order have normal subgroups of order:"
+    "Based off this analysis, groups of this order must have normal subgroups of order:"
   );
 });
 
@@ -63,6 +63,6 @@ test("complete sylow analysis of 1456", () => {
       },
     ],
     analysis:
-      "Based just off of this, groups of this order have normal subgroups of order: 7",
+      "Based off this analysis, groups of this order must have normal subgroups of order: 7",
   });
 });

@@ -38,7 +38,7 @@ const removeTrailingComma = (str: string) => {
 
 const stringifySylowAnalysis = (list: number[]) =>
   removeTrailingComma(
-    `Based just off of this, groups of this order have normal subgroups of order: ${list.reduce(
+    `Based off this analysis, groups of this order must have normal subgroups of order: ${list.reduce(
       (a, c) => a + c + ", ",
       ""
     )}`.trimEnd()
