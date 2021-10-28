@@ -84,7 +84,7 @@ export default function App() {
       const processed = await instance.processData(input);
       setWaiting(false);
 
-      setAnswer((processed as unknown) as ISylow);
+      setAnswer(processed as unknown as ISylow);
     });
   };
 
@@ -94,7 +94,15 @@ export default function App() {
       <AppContainer waiting={waiting} horizontal={width < 900}>
         <Nav horizontal={width < 900} />
         <Container>
-          <Input value={input} onChange={(e) => setInput(e.target.value)} />
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleClick();
+              }
+            }}
+          />
           <Button onClick={handleClick}>Analyze</Button>
           {typeof answer === "string" ? (
             <div>{answer}</div>
